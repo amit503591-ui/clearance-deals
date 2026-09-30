@@ -1,0 +1,8 @@
+{
+  "name": "Clearance Deals - Android App",
+  "description": "Android app for ClearanceDeals.info with offline cache, instant deal alerts, discount breakdowns, and lightning browsing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
