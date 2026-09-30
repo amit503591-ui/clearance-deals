@@ -449,6 +449,51 @@ export const OfflineManager: React.FC<OfflineManagerProps> = ({
             </button>
           </div>
         </div>
+
+        {/* Direct APK Download Card */}
+        <div
+          className={`p-5 rounded-3xl border space-y-3 flex flex-col justify-between md:col-span-2 ${
+            isAMOLED
+              ? 'bg-neutral-950 border-neutral-800'
+              : isDark
+              ? 'bg-slate-900 border-slate-800'
+              : 'bg-white border-slate-200'
+          }`}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div
+                className="w-10 h-10 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-md"
+                style={{ backgroundColor: accent.hex }}
+              >
+                <Smartphone className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className={`text-sm sm:text-base font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  Direct Android APK Package (.apk)
+                </h4>
+                <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Package: info.clearancedeals.app • Size: ~73 KB • Android 5.0+ to Android 14+
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <a
+                href="/ClearanceDeals-v1.0.apk"
+                download="ClearanceDeals-v1.0.apk"
+                className="py-2.5 px-4 rounded-xl text-white font-bold text-xs transition flex items-center gap-2 shadow-md hover:scale-105 active:scale-95"
+                style={{
+                  backgroundColor: accent.hex,
+                  boxShadow: `0 4px 14px ${accent.glowRgba}`,
+                }}
+              >
+                <Download className="w-4 h-4" />
+                <span>Download APK File</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <ScrollController scrollContainerRef={scrollRef} />

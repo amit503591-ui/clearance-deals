@@ -35,6 +35,6 @@ export interface CacheMetadata {
   version: string;
 }
 
-export type ActiveTab = 'feed' | 'webview' | 'categories' | 'saved' | 'offline' | 'settings';
+export type ActiveTab = 'feed' | 'webview' | 'categories' | 'saved' | 'offline' | 'readme' | 'settings';
 
 export type SortOption = 'latest' | 'discount' | 'price-low' | 'price-high';

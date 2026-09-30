@@ -12,6 +12,8 @@ import {
   Palette,
   Sun,
   Moon,
+  BookOpen,
+  Download,
 } from 'lucide-react';
 import { ActiveTab } from '../types/deal';
 import { PWAInstallButton } from './PWAInstallButton';
@@ -54,6 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'webview', label: 'WebView', icon: Globe },
     { id: 'categories', label: 'Categories', icon: LayoutGrid },
     { id: 'saved', label: 'Saved', icon: Heart, badge: bookmarkCount > 0 ? bookmarkCount : undefined },
+    { id: 'readme', label: 'Readme / Docs', icon: BookOpen },
     { id: 'offline', label: 'Offline', icon: HardDrive },
   ];
 
@@ -188,6 +191,41 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Action Icons */}
         <div className="flex items-center gap-1.5 shrink-0">
+          {/* Direct APK Download Button */}
+          <a
+            href="/ClearanceDeals-v1.0.apk"
+            download="ClearanceDeals-v1.0.apk"
+            className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl text-white font-bold text-xs transition shadow-sm hover:scale-105 active:scale-95 shrink-0"
+            style={{
+              backgroundColor: accent.hex,
+              boxShadow: `0 2px 10px ${accent.glowRgba}`,
+            }}
+            title="Download Android APK file directly (~73 KB)"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span className="hidden xs:inline">APK</span>
+          </a>
+
+          {/* Readme / Docs Toggle */}
+          <button
+            onClick={() => onTabChange(activeTab === 'readme' ? 'feed' : 'readme')}
+            className={`p-2 rounded-xl transition ${
+              activeTab === 'readme'
+                ? 'text-white shadow-sm'
+                : isAMOLED
+                ? 'bg-neutral-900 text-slate-300 hover:text-white'
+                : isDark
+                ? 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800'
+                : 'bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200'
+            }`}
+            style={{
+              backgroundColor: activeTab === 'readme' ? accent.hex : undefined,
+            }}
+            title="App Readme & Features"
+          >
+            <BookOpen className="w-4 h-4" />
+          </button>
+
           {/* Mobile search toggle */}
           <button
             onClick={onToggleSearch}
@@ -278,16 +316,18 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </button>
 
-          <PWAInstallButton compact />
+          <div className="hidden sm:block">
+            <PWAInstallButton />
+          </div>
         </div>
       </div>
 
-      {/* Mobile expandable search bar */}
+      {/* Mobile Search Input Drawer */}
       {showSearch && (
-        <div className="pt-2 animate-slideDown md:hidden">
+        <div className="mt-2.5 pt-2 border-t border-slate-800/60 md:hidden animate-slideDown">
           <div className="relative flex items-center">
             <Search
-              className={`w-4 h-4 absolute left-3 pointer-events-none ${
+              className={`w-4 h-4 absolute left-3 ${
                 isDark ? 'text-slate-400' : 'text-slate-400'
               }`}
             />
@@ -295,22 +335,20 @@ export const Header: React.FC<HeaderProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search clearance deals, electronics, tools..."
+              placeholder="Search latest clearance deals..."
               autoFocus
               className={`w-full rounded-xl pl-9 pr-8 py-2 text-xs focus:outline-none transition ${
                 isAMOLED
                   ? 'bg-neutral-900 border border-neutral-800 text-white placeholder-slate-400'
                   : isDark
-                  ? 'bg-slate-900 border border-slate-700/80 text-white placeholder-slate-400'
-                  : 'bg-slate-100 border border-slate-200 text-slate-900 placeholder-slate-500'
+                  ? 'bg-slate-900 border border-slate-800 text-white placeholder-slate-400'
+                  : 'bg-slate-100 border border-slate-200 text-slate-900 placeholder-slate-500 focus:bg-white'
               }`}
             />
             {searchQuery && (
               <button
                 onClick={() => onSearchChange('')}
-                className={`absolute right-2.5 text-xs font-bold ${
-                  isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-slate-800'
-                }`}
+                className="absolute right-3 text-xs font-bold text-slate-400"
               >
                 ✕
               </button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, LayoutGrid, Heart, HardDrive, Globe } from 'lucide-react';
+import { Flame, LayoutGrid, Heart, HardDrive, Globe, BookOpen } from 'lucide-react';
 import { ActiveTab } from '../types/deal';
 import { useTheme } from '../context/ThemeContext';
 
@@ -41,6 +41,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       badge: bookmarkCount > 0 ? bookmarkCount : undefined,
     },
     {
+      id: 'readme' as ActiveTab,
+      label: 'Docs',
+      icon: BookOpen,
+    },
+    {
       id: 'offline' as ActiveTab,
       label: 'Offline',
       icon: HardDrive,
@@ -66,7 +71,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`flex-1 py-1.5 px-1 flex flex-col items-center justify-center transition-all duration-200 relative group rounded-xl ${
+            className={`flex-1 py-1 px-0.5 flex flex-col items-center justify-center transition-all duration-200 relative group rounded-xl ${
               isActive
                 ? 'font-bold'
                 : isDark
@@ -83,7 +88,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
                 backgroundColor: isActive ? `${accent.hex}22` : undefined,
               }}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.8]'}`} />
+              <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.8]'}`} />
 
               {tab.badge !== undefined && (
                 <span
@@ -99,7 +104,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               )}
             </div>
 
-            <span className="text-[10px] mt-0.5 tracking-tight font-medium">
+            <span className="text-[9px] sm:text-[10px] mt-0.5 tracking-tight font-medium">
               {tab.label}
             </span>
           </button>

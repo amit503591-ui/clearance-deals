@@ -13,6 +13,7 @@ import { AndroidWebView } from './components/AndroidWebView';
 import { CategoryBrowser } from './components/CategoryBrowser';
 import { SavedDeals } from './components/SavedDeals';
 import { OfflineManager } from './components/OfflineManager';
+import { ReadmePage } from './components/ReadmePage';
 import { DealDetailModal } from './components/DealDetailModal';
 import { BottomNav } from './components/BottomNav';
 
@@ -244,6 +245,10 @@ function AppContent() {
             onClearCache={handleClearCache}
             onOpenThemeModal={() => setShowThemeModal(true)}
           />
+        )}
+
+        {activeTab === 'readme' && (
+          <ReadmePage onOpenTab={setActiveTab} />
         )}
       </main>
 

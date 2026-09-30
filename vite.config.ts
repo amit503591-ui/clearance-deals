@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import fs from 'fs';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -9,9 +10,36 @@ export default defineConfig(() => {
     plugins: [
       react(),
       tailwindcss(),
+      {
+        name: 'apk-download-handler',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url && (req.url.endsWith('.apk') || req.url.includes('ClearanceDeals'))) {
+              const filePath = path.resolve('public', 'ClearanceDeals-v1.0.apk');
+              if (fs.existsSync(filePath)) {
+                const stat = fs.statSync(filePath);
+                res.writeHead(200, {
+                  'Content-Type': 'application/vnd.android.package-archive',
+                  'Content-Disposition': 'attachment; filename="ClearanceDeals-v1.0.apk"',
+                  'Content-Length': stat.size,
+                  'Cache-Control': 'public, max-age=3600',
+                });
+                return fs.createReadStream(filePath).pipe(res);
+              }
+            }
+            next();
+          });
+        },
+      },
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'icon.svg'],
+        includeAssets: [
+          'favicon.ico',
+          'apple-touch-icon.png',
+          'icon.svg',
+          'ClearanceDeals-v1.0.apk',
+          'ClearanceDeals.apk',
+        ],
         manifest: {
           id: '/',
           name: 'Clearance Deals',
